@@ -1,4 +1,4 @@
-package Lab1.edu.miu.cs.cs489appsd.lab1a.productmgmtapp.model;
+package Lab1A.edu.miu.cs.cs489appsd.lab1a.productmgmtapp.model;
 
 import java.time.LocalDate;
 

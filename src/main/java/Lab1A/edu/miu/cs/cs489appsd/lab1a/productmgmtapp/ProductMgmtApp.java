@@ -1,14 +1,13 @@
-package Lab1.edu.miu.cs.cs489appsd.lab1a.productmgmtapp;
+package Lab1A.edu.miu.cs.cs489appsd.lab1a.productmgmtapp;
 
-import Lab1.edu.miu.cs.cs489appsd.lab1a.productmgmtapp.model.Product;
+import Lab1A.edu.miu.cs.cs489appsd.lab1a.productmgmtapp.model.Product;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
