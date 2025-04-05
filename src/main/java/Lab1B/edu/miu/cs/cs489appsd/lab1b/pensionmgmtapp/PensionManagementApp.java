@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -16,11 +15,10 @@ import java.util.stream.Collectors;
 
 public class PensionManagementApp {
     public static void main(String[] args) throws Exception {
-
         List<Employee> employees = loadSampleEmployees();
 
         System.out.println("\nAll Employees (with Pension Info), Sorted:");
-        printEmployeesSortedAsJson(employees);
+        printAllEmployeesSortedAsJson(employees);
 
         System.out.println("\nQuarterly Upcoming Enrollees Report:");
         printUpcomingEnrollees(employees);
@@ -29,28 +27,28 @@ public class PensionManagementApp {
     private static List<Employee> loadSampleEmployees() {
         List<Employee> list = new ArrayList<>();
 
-        Employee e1 = new Employee(1, "Daniel", "Agar", LocalDate.of(2018, 1, 17), new BigDecimal("100.00"));
-        e1.setPensionPlan(new PensionPlan("PEN-001", LocalDate.of(2023, 1, 17), new BigDecimal("100.00")));
+        Employee e1 = new Employee(1, "Daniel", "Agar", LocalDate.of(2018, 1, 17), 105945.50);
+        Employee e2 = new Employee(2, "Bernard", "Shaw", LocalDate.of(2022, 9, 3), 197750.00);
+        Employee e3 = new Employee(3, "Carly", "Agar", LocalDate.of(2014, 5, 16), 842000.75);
+        Employee e4 = new Employee(4, "Wesley", "Schneider", LocalDate.of(2021, 7, 21), 74500.00);
+        Employee e5 = new Employee(5, "Anna", "Wiltord", LocalDate.of(2021, 6, 15), 85750.00);
+        Employee e6 = new Employee(6, "Yosef", "Tesfalem", LocalDate.of(2021, 10, 31), 100000.00);
 
-        Employee e2 = new Employee(2, "Bernard", "Shaw", LocalDate.of(2020, 3, 12), new BigDecimal("90750.00"));
-
-        Employee e3 = new Employee(3, "Alice", "Johnson", LocalDate.of(2015, 5, 1), new BigDecimal("120000.00"));
-        e3.setPensionPlan(new PensionPlan("PEN-002", LocalDate.of(2022, 9, 21), new BigDecimal("950.00")));
-
-        Employee e4 = new Employee(4, "Carlos", "Mendez", LocalDate.of(2021, 7, 10), new BigDecimal("85000.00"));
-
-        Employee e5 = new Employee(5, "Emily", "Stone", LocalDate.of(2021, 8, 5), new BigDecimal("97000.00"));
+        // Assign pension plan manually if it already exists
+        e1.assignPensionPlan(new PensionPlan("EX1089", LocalDate.of(2023, 1, 17), 100.00));
+        e3.assignPensionPlan(new PensionPlan("SM2307", LocalDate.of(2019, 11, 16), 1555.50));
 
         list.add(e1);
         list.add(e2);
         list.add(e3);
         list.add(e4);
         list.add(e5);
+        list.add(e6);
 
         return list;
     }
 
-    private static void printEmployeesSortedAsJson(List<Employee> employees) throws Exception {
+    private static void printAllEmployeesSortedAsJson(List<Employee> employees) throws Exception {
         List<Employee> sortedList = employees.stream()
                 .sorted(Comparator.comparing(Employee::getYearlySalary).reversed()
                         .thenComparing(Employee::getLastName))
