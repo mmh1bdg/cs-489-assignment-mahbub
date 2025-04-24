@@ -1,10 +1,12 @@
-**This file contains all tasks of Lab-5**
+# This file contains all tasks of Lab-5
 
-Task-1: Entity Relationship Diagram
+# Task-1: Entity Relationship Diagram
+
 ![ERD.png](ERD.png)
 
 
-Task-2: SQL Implementation (Database and table creation)
+# Task-2: SQL Implementation (Database and table creation)
+
 [myADSDentalSurgeryDBScript.sql](myADSDentalSurgeryDBScript.sql)
 
 #  Create Database Statements 
@@ -31,6 +33,7 @@ CONSTRAINT `fk_appointment_surgery` FOREIGN KEY (`surgeryId`) REFERENCES `surger
 CONSTRAINT `fk_appointments_patientId` FOREIGN KEY (`patientId`) REFERENCES `patients` (`patientId`) ON DELETE RESTRICT
 );
 
+
 CREATE TABLE `patients` (
 `patientId` int NOT NULL,
 `firstName` varchar(45) DEFAULT NULL,
@@ -44,6 +47,7 @@ PRIMARY KEY (`patientId`),
 UNIQUE KEY `patientId_UNIQUE` (`patientId`)
 );
 
+
 CREATE TABLE `dentists` (
 `dentistId` int NOT NULL,
 `first_name` varchar(50) NOT NULL,
@@ -56,6 +60,7 @@ PRIMARY KEY (`dentistId`),
 UNIQUE KEY `dentist_id_UNIQUE` (`dentistId`)
 );
 
+
 CREATE TABLE `addresses` (
 `addressId` int NOT NULL,
 `street` varchar(45) DEFAULT NULL,
@@ -66,6 +71,7 @@ CREATE TABLE `addresses` (
 PRIMARY KEY (`addressId`)
 );
 
+
 CREATE TABLE `surgeries` (
 `surgeryId` varchar(15) NOT NULL,
 `surgeryName` varchar(45) DEFAULT NULL,
@@ -73,11 +79,14 @@ CREATE TABLE `surgeries` (
 PRIMARY KEY (`surgeryId`)
 );
 
+
 CREATE TABLE `roles` (
 `roleId` int NOT NULL,
 `roleName` varchar(45) DEFAULT NULL,
 PRIMARY KEY (`roleId`)
 );
+
+
 CREATE TABLE `users` (
 `userId` int NOT NULL,
 `userName` varchar(45) DEFAULT NULL,
@@ -86,7 +95,8 @@ CREATE TABLE `users` (
 PRIMARY KEY (`userId`)
 );
 
-# Create Relationships (add foreign keys 
+
+# Create Relationships (add foreign keys)
 ALTER TABLE `DSMS`.`appointments`
 ADD INDEX `fk_appoinments_dentists_idx` (`dentistId` ASC) VISIBLE,
 ADD INDEX `fk_appointments_patientId_idx` (`patientId` ASC) VISIBLE,
@@ -211,57 +221,12 @@ INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentis
 INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-15', '18:00', '3', '3', 'S13');
 
 
-Task-3: Insert Sample Data
-[InsertionOfSampleData.sql](InsertionOfSampleData.sql)
+# Task-3: Queries
 
-# Insert Roles to roles tables
-INSERT INTO `DSMS`.`roles` (`roleId`, `roleName`) VALUES ('1', 'Staff');
-INSERT INTO `DSMS`.`roles` (`roleId`, `roleName`) VALUES ('2', 'Dentist');
-INSERT INTO `DSMS`.`roles` (`roleId`, `roleName`) VALUES ('3', 'Patient');
-INSERT INTO `DSMS`.`roles` (`roleId`, `roleName`) VALUES ('4', 'Admin');
-
-
-# Insert Users in users tables
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('1', 'Brian Adams', '12xxe2', '1');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('2', 'Tony Smith', '1234', '2');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('3', 'Helen Pearson', '1234', '2');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('4', 'Robin Plevin', '1234', '2');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('7', 'Admin Admin', 'admin', '4');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('5', 'Gillian White', '1234', '3');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('6', 'jill Bell', '1234', '3');
-INSERT INTO `DSMS`.`users` (`userId`, `userName`, `password`, `roleId`) VALUES ('8', 'Ian Mackay', '123', '3');
-
-
-# Insert Dentists
-INSERT INTO `DSMS`.`dentists` (`dentistId`, `first_name`, `last_name`, `phone`, `email`, `specialization`, `userId`) VALUES ('1', 'Tony', 'Smith', '641-819-1351', 'tonny.smith@ads.com', 'orthodontics', '2');
-INSERT INTO `DSMS`.`dentists` (`dentistId`, `first_name`, `last_name`, `phone`, `email`, `specialization`, `userId`) VALUES ('2', 'Helen', 'Pearson', '765-1234-6789', 'helen@ads.com', 'General', '3');
-INSERT INTO `DSMS`.`dentists` (`dentistId`, `first_name`, `last_name`, `phone`, `email`, `specialization`, `userId`) VALUES ('3', 'Robin', 'Plevin', '123-1234-1234', 'robin@ads.com', 'General', '4');
-
-# Insert Address
-INSERT INTO addresses (addressId, street, city, state, zipCode) VALUES (1, '123 Main St', 'Plano', 'TX', '75023');
-INSERT INTO addresses (addressId, street, city, state, zipCode) VALUES (2, '456 Oak Ave', 'Dallas', 'TX', '75201');
-
-# Insert Patients
-INSERT INTO `DSMS`.`patients` (`patientId`, `firstName`, `lastName`, `phoneNumber`, `email`, `addressId`, `dateOfBirth`, `userId`) VALUES (1, 'Gillian', 'White', '111-2222-3333', 'example1@example.com', 1, '1980-09-12', 5);
-INSERT INTO `DSMS`.`patients` (`patientId`, `firstName`, `lastName`, `phoneNumber`, `email`, `addressId`, `dateOfBirth`, `userId`) VALUES (2, 'Jill', 'Bell', '222-3333-4444', 'example2@example.com', 2, '1970-09-12', 6);
-INSERT INTO `DSMS`.`patients` (`patientId`, `firstName`, `lastName`, `phoneNumber`, `email`, `addressId`, `dateOfBirth`, `userId`) VALUES (3, 'Jhon', 'Walker', '111-2222-3333', 'example1@example.com', 1, '2010-05-19', 8);
-
-# Insert Into Surgery
-INSERT INTO `DSMS`.`surgeries` (`surgeryId`, `surgeryName`, `addressId`) VALUES ('S15', 'Tooth Extraction', '1');
-INSERT INTO `DSMS`.`surgeries` (`surgeryId`, `surgeryName`, `addressId`) VALUES ('S13', 'Root Canal ', '2');
-INSERT INTO `DSMS`.`surgeries` (`surgeryId`, `surgeryName`, `addressId`) VALUES ('S12', 'Gum Surgery', '1');
-INSERT INTO `DSMS`.`surgeries` (`surgeryId`, `surgeryName`, `addressId`) VALUES ('S10', 'Bone Grafting', '2');
-
-# Insert Inro Appointments
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-12', '10:00', '1', '1', 'S15');
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-12', '12:00', '1', '2', 'S15');
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-12', '10:00', '2', '3', 'S10');
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-14', '14:00', '2', '3', 'S10');
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-15', '16:30', '3', '2', 'S15');
-INSERT INTO `DSMS`.`appointments` (`appointmentDate`, `appointmentTime`, `dentistId`, `patientId`, `surgeryId`) VALUES ('2013-09-15', '18:00', '3', '3', 'S13');
-
-Task-4: Queries
 ![Screenshot 2025-04-23 at 6.56.36 PM.png](screeshots/Screenshot%202025-04-23%20at%206.56.36%E2%80%AFPM.png)
+
 ![Screenshot 2025-04-23 at 7.06.01 PM.png](screeshots/Screenshot%202025-04-23%20at%207.06.01%E2%80%AFPM.png)
+
 ![Screenshot 2025-04-23 at 9.28.16 PM.png](screeshots/Screenshot%202025-04-23%20at%209.28.16%E2%80%AFPM.png)
+
 ![Screenshot 2025-04-23 at 9.38.52 PM.png](screeshots/Screenshot%202025-04-23%20at%209.38.52%E2%80%AFPM.png)
